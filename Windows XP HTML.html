@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Simulation</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #008080;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Taskbar */
+        #taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #3a6ea5;
+            padding: 10px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Desktop Icons */
+        #desktop-icons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .icon {
+            background-color: white;
+            padding: 10px;
+            margin: 5px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        /* Windows */
+        .window {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background-color: #e0e0e0;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .window-header {
+            background-color: #0050a0;
+            color: white;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* BSOD Screen */
+        #bsod-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000AA;
+            color: white;
+            font-family: Consolas, monospace;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        /* Nyan Cat Takeover */
+        #nyan-cat-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: none; /* Hides cursor */
+        }
+
+        /* Chrome Chaos */
+        .chrome-window {
+            position: absolute;
+            width: 150px;
+            height: 100px;
+            background: white;
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Desktop UI -->
+    <div id="desktop">
+        <div id="desktop-icons">
+            <div class="icon" onclick="triggerChromeChaos()">🌐 Google</div>
+            <div class="icon" onclick="triggerMEMZ()">🗑️ MEMZ.exe</div>
+        </div>
+
+        <div id="taskbar">
+            <button onclick="triggerChromeChaos()">Google</button>
+            <button onclick="triggerMEMZ()">MEMZ.exe</button>
+        </div>
+    </div>
+
+    <!-- BSOD Screen -->
+    <div id="bsod-screen">
+        <h1>A problem has been detected and Windows has been shut down to prevent damage.</h1>
+        <p>MEMZ.EXE has caused an infinite recursion of regret.</p>
+        <p>Press any key to uninstall reality.</p>
+    </div>
+
+    <!-- Nyan Cat Takeover -->
+    <div id="nyan-cat-screen">
+        <img src="nyan_cat.gif" alt="Nyan Cat Flying Forever">
+    </div>
+
+    <!-- Nyan Cat Music -->
+    <audio id="nyan-cat-audio" src="nyan_cat.mp3" loop></audio>
+
+    <script>
+        function triggerMEMZ() {
+            document.getElementById("desktop").style.display = "none";
+            document.getElementById("bsod-screen").style.display = "flex";
+            
+            setTimeout(function() {
+                document.getElementById("bsod-screen").style.display = "none";
+                document.getElementById("nyan-cat-screen").style.display = "flex";
+                document.getElementById("nyan-cat-audio").play();
+            }, 3000); // Delay before the Nyan Cat takeover
+        }
+
+        function triggerChromeChaos() {
+            let chromeWindow = document.createElement("div");
+            chromeWindow.className = "chrome-window";
+            chromeWindow.innerText = "Google";
+            document.body.appendChild(chromeWindow);
+
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            let dx = Math.random() * 6 - 3;
+            let dy = Math.random() * 6 - 3;
+
+            function moveWindow() {
+                x += dx;
+                y += dy;
+
+                if (x < 0 || x > window.innerWidth - 150) dx *= -1;
+                if (y < 0 || y > window.innerHeight - 100) dy *= -1;
+
+                chromeWindow.style.left = x + "px";
+                chromeWindow.style.top = y + "px";
+
+                requestAnimationFrame(moveWindow);
+            }
+            
+            moveWindow();
+
+            setInterval(triggerChromeChaos, 2000); // Multiply chaos over time
+        }
+    </script>
+</body>
+</html>
